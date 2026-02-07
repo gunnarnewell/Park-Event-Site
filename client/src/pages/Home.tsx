@@ -1,12 +1,65 @@
-import { useEvents } from "@/hooks/use-events";
-import { EventCard } from "@/components/EventCard";
 import { motion } from "framer-motion";
-import { ArrowDown, Leaf, Music, Heart } from "lucide-react";
+import { ArrowDown, Leaf, Music, Heart, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+
+// Hardcoded events for a zero-maintenance static experience
+const HARDCODED_EVENTS = [
+  {
+    id: 1,
+    title: "Community Cleanup",
+    time: "11:00 AM",
+    description: "Grab gloves, we’ll provide bags. Help keep the park beautiful.",
+    location: "Meet at the north entrance"
+  },
+  {
+    id: 2,
+    title: "Picnic & Games",
+    time: "12:30 PM",
+    description: "Bring a blanket. We’ll have casual lawn games and a snack table.",
+    location: "Main Lawn"
+  },
+  {
+    id: 3,
+    title: "Sunset Acoustic Set",
+    time: "3:00 PM",
+    description: "Local musicians, light sound, and a relaxed wind-down.",
+    location: "Gazebo"
+  }
+];
+
+function EventCard({ event, index }: { event: typeof HARDCODED_EVENTS[0], index: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.1, duration: 0.5 }}
+    >
+      <Card className="h-full border-none shadow-sm hover:shadow-md transition-shadow bg-secondary/20">
+        <CardContent className="p-6">
+          <div className="flex justify-between items-start mb-4">
+            <span className="text-sm font-bold text-primary px-3 py-1 bg-white rounded-full shadow-sm">
+              {event.time}
+            </span>
+          </div>
+          <h3 className="text-xl font-bold mb-2 font-display">{event.title}</h3>
+          <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
+            {event.description}
+          </p>
+          {event.location && (
+            <div className="flex items-center text-xs text-muted-foreground/80 mt-auto">
+              <MapPin className="w-3 h-3 mr-1" />
+              {event.location}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+    </motion.div>
+  );
+}
 
 export default function Home() {
-  const { data: events, isLoading, error } = useEvents();
-
   const scrollToDonate = () => {
     document.getElementById("donate")?.scrollIntoView({ behavior: "smooth" });
   };
@@ -46,7 +99,6 @@ export default function Home() {
           </motion.div>
         </div>
 
-        {/* Decorative subtle background elements */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none opacity-40">
            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-green-200/30 rounded-full blur-[100px]" />
            <div className="absolute bottom-[-10%] right-[-10%] w-[30%] h-[50%] bg-yellow-100/40 rounded-full blur-[100px]" />
@@ -63,33 +115,15 @@ export default function Home() {
             </p>
           </div>
 
-          {isLoading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="h-64 bg-secondary/50 rounded-xl animate-pulse" />
-              ))}
-            </div>
-          ) : error ? (
-            <div className="text-center py-12 bg-red-50 rounded-xl border border-red-100">
-              <p className="text-red-600">Failed to load schedule. Please try refreshing.</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {events?.map((event, i) => (
-                <EventCard key={event.id} event={event} index={i} />
-              ))}
-            </div>
-          )}
-
-          {(!events || events.length === 0) && !isLoading && !error && (
-            <div className="text-center py-20 bg-secondary/20 rounded-xl border border-dashed border-border">
-              <p className="text-muted-foreground">Schedule coming soon...</p>
-            </div>
-          )}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {HARDCODED_EVENTS.map((event, i) => (
+              <EventCard key={event.id} event={event} index={i} />
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* --- FEATURE ICONS (Visual Break) --- */}
+      {/* --- FEATURE ICONS --- */}
       <section className="py-12 border-y border-border/50 bg-secondary/10">
         <div className="container-tight">
           <div className="grid grid-cols-3 gap-8 text-center">
@@ -131,12 +165,11 @@ export default function Home() {
 
             <div className="bg-secondary/30 p-8 rounded-2xl max-w-sm mx-auto border border-border/50 shadow-sm">
               <div className="aspect-square bg-white rounded-xl mb-6 flex items-center justify-center border-2 border-dashed border-border overflow-hidden relative group">
-                {/* QR Code Placeholder - In a real app, this would be an image tag */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-muted-foreground p-4">
                    <div className="w-32 h-32 bg-foreground/5 rounded mb-2" /> 
-                   <span className="text-xs">QR Code</span>
+                   <span className="text-xs">QR Code Placeholder</span>
+                   <span className="text-[10px] mt-1">(Upload donate-qr.png to /client/public/)</span>
                 </div>
-                {/* Fallback image logic would go here: <img src="/donate-qr.png" alt="Donate QR" className="absolute inset-0 w-full h-full object-cover" /> */}
               </div>
               
               <p className="font-display font-bold text-xl mb-2">Scan to Donate</p>
