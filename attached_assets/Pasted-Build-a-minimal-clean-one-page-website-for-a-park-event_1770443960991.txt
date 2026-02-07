@@ -1,0 +1,95 @@
+Build a minimal, clean, one-page website for a park event. Use plain HTML + CSS (no frameworks). Keep everything in a single index.html with embedded <style> and minimal JavaScript (only if needed). The design should be modern, high-contrast, lots of whitespace, and mobile-first.
+
+Site requirements
+
+Hero section
+
+Event title (large)
+
+Date + time
+
+Park/location
+
+One-sentence description
+
+A primary CTA button: “Donate” that scrolls to the donation section
+
+Three highlighted events
+
+A section titled “Today’s Highlights”
+
+Exactly 3 event cards, each with:
+
+Event name
+
+Time
+
+Short description (1–2 lines)
+
+Optional “Where” line (small)
+
+Cards should be aligned nicely on desktop (3 columns) and stack on mobile.
+
+Donation section
+
+Title: “Support the Park”
+
+Short sentence explaining what donations fund
+
+Display a QR code image (I will provide it)
+
+Under the QR, include a small caption like: “Scan to donate”
+
+Also include a backup donate link button (href placeholder) in case scanning fails
+
+Footer
+
+Small text: organizer name, contact email placeholder, and a line like “Please pack out what you pack in.”
+
+QR code handling
+
+Assume I will upload a file named donate-qr.png into the project root.
+
+Render it at an appropriate size (around 220–260px), responsive, with a subtle border or card background.
+
+If the image is missing, show a friendly placeholder box saying “Upload donate-qr.png”.
+
+Content placeholders (use these exact values for now)
+
+Title: “Greenwood Park Day”
+
+Date/Time: “Saturday, May 18 • 11:00 AM – 4:00 PM”
+
+Location: “Greenwood Park • Main Lawn”
+
+Description: “A low-key afternoon of community, music, and cleanup — everyone welcome.”
+
+Three events
+
+“Community Cleanup” — “11:00 AM” — “Grab gloves, we’ll provide bags. Help keep the park beautiful.” — Where: “Meet at the north entrance”
+
+“Picnic & Games” — “12:30 PM” — “Bring a blanket. We’ll have casual lawn games and a snack table.” — Where: “Main Lawn”
+
+“Sunset Acoustic Set” — “3:00 PM” — “Local musicians, light sound, and a relaxed wind-down.” — Where: “Gazebo”
+
+Design constraints
+
+Use system fonts (e.g., ui-sans-serif, system-ui)
+
+Background: off-white; text: near-black; one subtle accent color for buttons/links
+
+Accessible contrast, focus states for keyboard navigation
+
+Max content width ~ 960px
+
+Smooth scroll behavior
+
+No external images, no external libraries, no trackers
+
+Deliverables
+
+Create index.html that runs as a static site.
+
+Include clear comments showing where I can edit event info and the donate link.
+
+Make sure it looks good on mobile and desktop.
