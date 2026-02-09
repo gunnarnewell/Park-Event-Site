@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowDown, Leaf, Music, Heart, MapPin } from "lucide-react";
+import { ArrowDown, Leaf, Calendar, Heart, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -135,9 +135,9 @@ export default function Home() {
             </div>
             <div className="flex flex-col items-center gap-3">
               <div className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center text-amber-700">
-                <Music className="w-6 h-6" />
+                <Calendar className="w-6 h-6" />
               </div>
-              <span className="font-display font-semibold">Music</span>
+              <span className="font-display font-semibold">Events</span>
             </div>
             <div className="flex flex-col items-center gap-3">
               <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-700">
