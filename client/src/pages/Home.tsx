@@ -165,11 +165,11 @@ export default function Home() {
 
             <div className="bg-secondary/30 p-8 rounded-2xl max-w-sm mx-auto border border-border/50 shadow-sm">
               <div className="aspect-square bg-white rounded-xl mb-6 flex items-center justify-center border-2 border-dashed border-border overflow-hidden relative group">
-                <div className="absolute inset-0 flex flex-col items-center justify-center text-muted-foreground p-4">
-                   <div className="w-32 h-32 bg-foreground/5 rounded mb-2" /> 
-                   <span className="text-xs">QR Code Placeholder</span>
-                   <span className="text-[10px] mt-1">(Upload donate-qr.png to /client/public/)</span>
-                </div>
+                <img
+                  src="/donate-qr.png"
+                  alt="Scan this QR code to donate"
+                  className="h-full w-full object-contain"
+                />
               </div>
               
               <p className="font-display font-bold text-xl mb-2">Scan to Donate</p>
