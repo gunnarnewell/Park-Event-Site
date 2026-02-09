@@ -7,24 +7,24 @@ import { Card, CardContent } from "@/components/ui/card";
 const HARDCODED_EVENTS = [
   {
     id: 1,
-    title: "Community Cleanup",
+    title: "Morning Yoga & Coffee in the Park",
     time: "11:00 AM",
-    description: "Grab gloves, we’ll provide bags. Help keep the park beautiful.",
-    location: "Meet at the north entrance"
+    description: "Yoga and Coffee in the park",
+    location: "Franklin Park"
   },
   {
     id: 2,
     title: "Picnic & Games",
     time: "12:30 PM",
-    description: "Bring a blanket. We’ll have casual lawn games and a snack table.",
-    location: "Main Lawn"
+    description: "Bring a blanket. We’ll have casual lawn games and food trucks.",
+    location: "Chesterly Park"
   },
   {
     id: 3,
-    title: "Sunset Acoustic Set",
+    title: "Pet Costume Party",
     time: "3:00 PM",
-    description: "Local musicians, light sound, and a relaxed wind-down.",
-    location: "Gazebo"
+    description: "If your dog loves looking chick then show up at the Randall Dog Park",
+    location: "Randall Park"
   }
 ];
 
@@ -79,11 +79,11 @@ export default function Home() {
               Saturday, May 18 • 11:00 AM – 4:00 PM
             </span>
             <h1 className="text-5xl sm:text-7xl md:text-8xl font-bold text-foreground mb-6 leading-[0.95]">
-              Greenwood <br />
-              <span className="text-primary italic font-serif">Park Day</span>
+              Yakima <br />
+              <span className="text-primary italic font-serif">Parks Day</span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-xl mx-auto mb-10 text-balance leading-relaxed">
-              A low-key afternoon of community, music, and nature at the Main Lawn. Everyone is welcome to join the celebration.
+              A low-key day of highlighting our community, and the Wonderful Parks we have across Yakima. Everyone is welcome to join the celebration at any of our events throughout the day.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -109,9 +109,9 @@ export default function Home() {
       <section className="py-24 px-4 bg-background">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Today's Highlights</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Event Highlights</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              We have a packed schedule of events designed to bring neighbors together.
+              Here is schedule of events designed to bring neighbors together.
             </p>
           </div>
 
@@ -173,10 +173,12 @@ export default function Home() {
               </div>
               
               <p className="font-display font-bold text-xl mb-2">Scan to Donate</p>
-              <p className="text-sm text-muted-foreground mb-6">Venmo, Cash App, or PayPal</p>
+              <p className="text-sm text-muted-foreground mb-6">Join your community, even a dollar tells the world you love Yakima parks</p>
               
-              <Button variant="outline" className="w-full rounded-full border-primary/20 text-primary hover:bg-primary/5 hover:text-primary-dark">
-                Donate via Link
+              <Button asChild variant="outline" className="w-full rounded-full border-primary/20 text-primary hover:bg-primary/5 hover:text-primary-dark">
+                <a href="https://bit.ly/4qtaG9O" target="_blank" rel="noreferrer">
+                  Donate via Link
+                </a>
               </Button>
             </div>
           </motion.div>
@@ -194,9 +196,9 @@ export default function Home() {
           </p>
           
           <div className="flex justify-center gap-6 text-sm text-background/40">
-            <span>© 2024 Park Committee</span>
-            <a href="#" className="hover:text-background/80 transition-colors">Contact</a>
-            <a href="#" className="hover:text-background/80 transition-colors">Volunteer</a>
+            <span>© 2026 Leadership Yakima</span>
+            {/* <a href="#" className="hover:text-background/80 transition-colors">Contact</a>
+            <a href="#" className="hover:text-background/80 transition-colors">Volunteer</a> */}
           </div>
         </div>
       </footer>
