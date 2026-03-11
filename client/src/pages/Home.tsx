@@ -1,58 +1,102 @@
 import { motion } from "framer-motion";
-import { ArrowDown, Leaf, Calendar, Heart, MapPin } from "lucide-react";
+import {
+  ArrowDown,
+  Calendar,
+  ExternalLink,
+  FileText,
+  Heart,
+  MapPin,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
-// Hardcoded events for a zero-maintenance static experience
-const HARDCODED_EVENTS = [
+const flyerUrl = new URL("../../../Yakima.pdf", import.meta.url).href;
+const parkAddress = "2101 Tieton Dr, Yakima, WA 98902";
+const eventDate = "Saturday, April 25";
+
+const officialLinks = [
+  {
+    label: "Leadership Yakima",
+    href: "https://www.yakima.org/programs/leadership-yakima/",
+  },
+  {
+    label: "Yakima Parks and Recreation",
+    href: "https://yakimaparks.com/",
+  },
+  {
+    label: "Franklin Park",
+    href: "https://yakimaparks.com/parks/franklin/",
+  },
+];
+
+const events = [
   {
     id: 1,
-    title: "Morning Yoga & Coffee in the Park",
-    time: "11:00 AM",
-    description: "Yoga and Coffee in the park",
-    location: "Franklin Park"
+    title: "Yoga",
+    time: "10:00 AM - 11:00 AM",
+    description: "Start the day with a community yoga session in the park.",
   },
   {
     id: 2,
-    title: "Picnic & Games",
-    time: "12:30 PM",
-    description: "Bring a blanket. We’ll have casual lawn games and food trucks.",
-    location: "Chesterly Park"
+    title: "Story Time",
+    time: "11:00 AM - 11:30 AM",
+    description: "Gather for a family-friendly story time session.",
   },
   {
     id: 3,
-    title: "Pet Costume Party",
-    time: "3:00 PM",
-    description: "If your dog loves looking chick then show up at the Randall Dog Park",
-    location: "Randall Park"
-  }
+    title: "Airplanes",
+    time: "11:30 AM - 1:00 PM",
+    description: "Drop in to enjoy the airplane activity block.",
+  },
+  {
+    id: 4,
+    title: "Pickle Ball",
+    time: "1:00 PM - 3:00 PM",
+    description: "Free play in the afternoon. Join anytime.",
+  },
+  {
+    id: 5,
+    title: "Treasure Hunt",
+    time: "10:00 AM - 3:00 PM",
+    description: "Pick up a treasure hunt sheet and play throughout the day.",
+  },
+  {
+    id: 6,
+    title: "Music",
+    time: "10:00 AM - 3:00 PM",
+    description: "Live music throughout the event.",
+  },
 ];
 
-function EventCard({ event, index }: { event: typeof HARDCODED_EVENTS[0], index: number }) {
+function EventCard({
+  event,
+  index,
+}: {
+  event: (typeof events)[number];
+  index: number;
+}) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ delay: index * 0.1, duration: 0.5 }}
+      transition={{ delay: index * 0.08, duration: 0.45 }}
     >
-      <Card className="h-full border-none shadow-sm hover:shadow-md transition-shadow bg-secondary/20">
-        <CardContent className="p-6">
-          <div className="flex justify-between items-start mb-4">
-            <span className="text-sm font-bold text-primary px-3 py-1 bg-white rounded-full shadow-sm">
-              {event.time}
-            </span>
-          </div>
-          <h3 className="text-xl font-bold mb-2 font-display">{event.title}</h3>
-          <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
+      <Card className="h-full border-white/40 bg-white/88 shadow-lg shadow-black/5 backdrop-blur">
+        <CardContent className="flex h-full flex-col p-6">
+          <span className="mb-4 inline-flex w-fit rounded-full bg-[#f4ead9] px-3 py-1 text-sm font-bold text-[#6b5b3e]">
+            {event.time}
+          </span>
+          <h3 className="mb-2 text-xl font-bold font-display text-[#203124]">
+            {event.title}
+          </h3>
+          <p className="mb-5 text-sm leading-relaxed text-[#4c5a4f]">
             {event.description}
           </p>
-          {event.location && (
-            <div className="flex items-center text-xs text-muted-foreground/80 mt-auto">
-              <MapPin className="w-3 h-3 mr-1" />
-              {event.location}
-            </div>
-          )}
+          <div className="mt-auto flex items-center text-xs text-[#5e6e61]">
+            <MapPin className="mr-1 h-3 w-3" />
+            Franklin Park, Yakima
+          </div>
         </CardContent>
       </Card>
     </motion.div>
@@ -60,145 +104,357 @@ function EventCard({ event, index }: { event: typeof HARDCODED_EVENTS[0], index:
 }
 
 export default function Home() {
-  const scrollToDonate = () => {
-    document.getElementById("donate")?.scrollIntoView({ behavior: "smooth" });
+  const scrollToSection = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <div className="min-h-screen flex flex-col w-full overflow-x-hidden">
-      {/* --- HERO SECTION --- */}
-      <section className="relative min-h-[90vh] flex items-center justify-center bg-secondary/30 px-4 pt-10 pb-20">
-        <div className="container-tight text-center z-10">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="mb-8"
+    <div className="min-h-screen overflow-x-hidden bg-[#f7f2e8] text-[#203124]">
+      <header className="absolute inset-x-0 top-0 z-30">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-5 sm:px-6 lg:px-8">
+          <button
+            type="button"
+            onClick={() => scrollToSection("top")}
+            className="text-left"
           >
-            <span className="inline-block px-4 py-1.5 mb-6 rounded-full border border-primary/20 text-primary text-sm font-medium tracking-wide bg-white/50 backdrop-blur-sm">
-              Saturday, May 18 • 11:00 AM – 4:00 PM
-            </span>
-            <h1 className="text-5xl sm:text-7xl md:text-8xl font-bold text-foreground mb-6 leading-[0.95]">
-              Yakima <br />
-              <span className="text-primary italic font-serif">Parks Day</span>
-            </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-xl mx-auto mb-10 text-balance leading-relaxed">
-              A low-key day of highlighting our community, and the Wonderful Parks we have across Yakima. Everyone is welcome to join the celebration at any of our events throughout the day.
+            <p className="text-xs font-semibold uppercase tracking-[0.32em] text-white/75">
+              Leadership Yakima
             </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button 
-                onClick={scrollToDonate}
-                size="lg" 
-                className="rounded-full px-8 text-base bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20 transition-all hover:-translate-y-1"
+            <p className="text-lg font-bold text-white sm:text-xl">Yakima Parks Day</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/80">
+              {eventDate}
+            </p>
+          </button>
+
+          <nav className="hidden items-center gap-6 text-sm font-medium text-white/85 md:flex">
+            <button type="button" onClick={() => scrollToSection("about")} className="transition hover:text-white">
+              About
+            </button>
+            <button type="button" onClick={() => scrollToSection("schedule")} className="transition hover:text-white">
+              Schedule
+            </button>
+            <button type="button" onClick={() => scrollToSection("donate")} className="transition hover:text-white">
+              Donate
+            </button>
+            <a href={flyerUrl} target="_blank" rel="noreferrer" className="transition hover:text-white">
+              Flyer
+            </a>
+          </nav>
+        </div>
+      </header>
+
+      <section
+        id="top"
+        className="relative flex min-h-screen items-end overflow-hidden bg-[#29402f] px-4 pb-10 pt-28 sm:px-6 lg:px-8"
+      >
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('/franklin-park-hero.jpg')" }}
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,25,18,0.35),rgba(15,25,18,0.82))]" />
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-[linear-gradient(180deg,transparent,rgba(247,242,232,0.92))]" />
+
+        <div className="relative z-10 mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="max-w-3xl"
+          >
+            <span className="mb-6 inline-flex rounded-full border border-white/20 bg-white/12 px-4 py-2 text-sm font-semibold tracking-wide text-white backdrop-blur-sm">
+              {eventDate} | 10:00 AM to 3:00 PM
+            </span>
+            <h1 className="mb-6 text-5xl font-bold leading-[0.92] text-white sm:text-7xl md:text-8xl">
+              Yakima <br />
+              <span className="font-serif italic text-[#f4ead9]">Parks Day</span>
+            </h1>
+            <p className="mb-8 max-w-2xl text-lg leading-relaxed text-white md:text-xl">
+              A free community event at Franklin Park focused on raising awareness
+              of Yakima parks and what is being cut with the current budget.
+            </p>
+
+            <div className="mb-8 grid max-w-2xl gap-4 rounded-[2rem] border border-white/15 bg-[#fff9f0]/90 p-6 text-[#203124] shadow-2xl shadow-black/20 backdrop-blur sm:grid-cols-[1fr_auto] sm:items-center">
+              <div>
+                <p className="mb-1 text-2xl font-bold text-[#2d5b40] md:text-3xl">
+                  FREE EVENT
+                </p>
+                <p className="text-sm leading-relaxed text-[#4c5a4f] md:text-base">
+                  Donations support the park, but everyone is invited whether they
+                  donate or not. Join us on {eventDate}.
+                </p>
+              </div>
+              <div className="rounded-2xl bg-[#edf3ea] px-4 py-3 text-sm font-semibold text-[#2d5b40]">
+                Open to all
+              </div>
+            </div>
+
+            <div className="mb-10 space-y-2 text-white/90">
+              <div className="flex items-center gap-2 text-sm uppercase tracking-[0.24em] text-white/70">
+                <MapPin className="h-4 w-4" />
+                Franklin Park
+              </div>
+              <p className="text-base md:text-lg">{parkAddress}</p>
+            </div>
+
+            <div className="flex flex-col gap-4 sm:flex-row">
+              <Button
+                type="button"
+                size="lg"
+                onClick={() => scrollToSection("schedule")}
+                className="rounded-full bg-[#f4ead9] px-8 text-base font-semibold text-[#203124] shadow-lg shadow-black/20 hover:bg-[#efe1c8]"
+              >
+                See Schedule
+                <Calendar className="ml-2 h-4 w-4" />
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="rounded-full border-white/35 bg-white/10 px-8 text-base text-white backdrop-blur hover:bg-white/18 hover:text-white"
+              >
+                <a href={flyerUrl} target="_blank" rel="noreferrer">
+                  See Flyer
+                  <FileText className="ml-2 h-4 w-4" />
+                </a>
+              </Button>
+              <Button
+                type="button"
+                size="lg"
+                onClick={() => scrollToSection("donate")}
+                className="rounded-full bg-[#2d5b40] px-8 text-base text-white shadow-lg shadow-black/20 hover:bg-[#244c35]"
               >
                 Donate
-                <Heart className="ml-2 w-4 h-4 fill-current" />
+                <Heart className="ml-2 h-4 w-4 fill-current" />
               </Button>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="justify-self-end rounded-[2rem] border border-white/15 bg-white/12 p-6 text-white shadow-2xl shadow-black/25 backdrop-blur-md lg:max-w-md"
+          >
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.32em] text-white/70">
+              What to Expect
+            </p>
+            <div className="space-y-4">
+              <div>
+                <p className="text-xl font-bold">Family-friendly activities all day</p>
+                <p className="text-sm leading-relaxed text-white/78">
+                  Yoga, story time, airplanes, pickle ball, treasure hunt, and music.
+                </p>
+              </div>
+              <div>
+                <p className="text-xl font-bold">A clearer message about the parks</p>
+                <p className="text-sm leading-relaxed text-white/78">
+                  The event helps people understand the value of Yakima parks and
+                  what current budget cuts mean for the community.
+                </p>
+              </div>
             </div>
           </motion.div>
         </div>
 
-        <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none opacity-40">
-           <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-green-200/30 rounded-full blur-[100px]" />
-           <div className="absolute bottom-[-10%] right-[-10%] w-[30%] h-[50%] bg-yellow-100/40 rounded-full blur-[100px]" />
-        </div>
+        <button
+          type="button"
+          onClick={() => scrollToSection("about")}
+          className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-sm font-medium text-white/80 transition hover:text-white"
+        >
+          <span>Scroll for details</span>
+          <ArrowDown className="h-5 w-5 animate-bounce" />
+        </button>
       </section>
 
-      {/* --- HIGHLIGHTS SECTION --- */}
-      <section className="py-24 px-4 bg-background">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Event Highlights</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Here is schedule of events designed to bring neighbors together.
+      <section id="about" className="relative overflow-hidden px-4 py-24 sm:px-6 lg:px-8">
+        <div
+          className="absolute inset-y-0 right-0 hidden w-1/2 bg-cover bg-center opacity-18 lg:block"
+          style={{ backgroundImage: "url('/franklin-park-pavilion.jpg')" }}
+        />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(241,223,187,0.5),transparent_45%)]" />
+
+        <div className="relative mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="max-w-2xl">
+            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-[#7d6740]">
+              Why This Event Exists
+            </p>
+            <p className="mb-4 inline-flex rounded-full bg-[#f4ead9] px-4 py-2 text-sm font-bold text-[#6b5b3e]">
+              Happening {eventDate}
+            </p>
+            <h2 className="mb-5 text-4xl font-bold tracking-tight md:text-5xl">
+              More than a park event
+            </h2>
+            <p className="mb-6 max-w-xl text-lg leading-relaxed text-[#465448]">
+              Yakima Parks Day is meant to raise awareness of the parks, the role
+              they play in daily life, and what is being cut with the current
+              budget. The event gives people a reason to show up, spend time in the
+              park, and connect that experience to why these spaces matter.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {HARDCODED_EVENTS.map((event, i) => (
-              <EventCard key={event.id} event={event} index={i} />
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+            <Card className="border-[#d7ccb6] bg-[#fffaf2] shadow-lg shadow-black/5">
+              <CardContent className="p-6">
+                <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-[#7d6740]">
+                  Event Focus
+                </p>
+                <p className="text-lg font-bold text-[#203124]">
+                  Free attendance, clear community purpose
+                </p>
+                <p className="mt-2 text-sm leading-relaxed text-[#5a665d]">
+                  The site now leads with event details first and keeps donations as
+                  supporting information.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-[#c9d7cb] bg-[#edf3ea] shadow-lg shadow-black/5">
+              <CardContent className="p-6">
+                <p className="mb-2 text-sm font-semibold uppercase tracking-[0.2em] text-[#48644e]">
+                  Official Links
+                </p>
+                <div className="space-y-3">
+                  {officialLinks.map((link) => (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center justify-between rounded-2xl bg-white px-4 py-3 text-sm font-medium text-[#203124] transition hover:bg-[#f7f2e8]"
+                    >
+                      <span>{link.label}</span>
+                      <ExternalLink className="h-4 w-4 text-[#48644e]" />
+                    </a>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      <section id="schedule" className="relative overflow-hidden px-4 py-24 sm:px-6 lg:px-8">
+        <div className="absolute inset-0 bg-[#dde6d9]" />
+        <div
+          className="absolute inset-y-0 left-0 w-full bg-cover bg-center opacity-[0.10]"
+          style={{ backgroundImage: "url('/franklin-park-hero.jpg')" }}
+        />
+
+        <div className="relative mx-auto max-w-7xl">
+          <div className="mb-12 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-2xl">
+              <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-[#48644e]">
+                Event Schedule
+              </p>
+              <h2 className="mb-4 text-4xl font-bold tracking-tight md:text-5xl">
+                Saturday at Franklin Park
+              </h2>
+              <p className="text-base leading-relaxed text-[#4c5a4f]">
+                {eventDate} from 10:00 AM to 3:00 PM at {parkAddress}. All activities
+                are part of the free public event.
+              </p>
+            </div>
+
+            <Card className="max-w-md border-white/50 bg-white/80 shadow-lg shadow-black/5 backdrop-blur">
+              <CardContent className="p-5">
+                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#7d6740]">
+                  Quick Note
+                </p>
+                <p className="mt-2 text-sm leading-relaxed text-[#5a665d]">
+                  Donations support the park, but the event itself is free and open
+                  to all visitors on {eventDate}.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {events.map((event, index) => (
+              <EventCard key={event.id} event={event} index={index} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* --- FEATURE ICONS --- */}
-      <section className="py-12 border-y border-border/50 bg-secondary/10">
-        <div className="container-tight">
-          <div className="grid grid-cols-3 gap-8 text-center">
-            <div className="flex flex-col items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-green-700">
-                <Leaf className="w-6 h-6" />
-              </div>
-              <span className="font-display font-semibold">Nature</span>
-            </div>
-            <div className="flex flex-col items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center text-amber-700">
-                <Calendar className="w-6 h-6" />
-              </div>
-              <span className="font-display font-semibold">Events</span>
-            </div>
-            <div className="flex flex-col items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-700">
-                <Heart className="w-6 h-6" />
-              </div>
-              <span className="font-display font-semibold">Community</span>
-            </div>
-          </div>
-        </div>
-      </section>
+      <section id="donate" className="relative overflow-hidden px-4 py-24 sm:px-6 lg:px-8">
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,#fffaf2,#f1e7d6)]" />
+        <div
+          className="absolute inset-y-0 right-0 hidden w-[38%] bg-cover bg-center opacity-15 lg:block"
+          style={{ backgroundImage: "url('/franklin-park-pavilion.jpg')" }}
+        />
 
-      {/* --- DONATION SECTION --- */}
-      <section id="donate" className="py-24 px-4 bg-white">
-        <div className="container-tight text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-3xl md:text-5xl font-bold mb-6">Support the Park</h2>
-            <p className="text-lg text-muted-foreground mb-12 max-w-xl mx-auto">
-              Your donations help fund daily maintenance, new plantings, and future community gatherings like this one.
+        <div className="relative mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+          <div>
+            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-[#7d6740]">
+              Support the Park
             </p>
+            <h2 className="mb-5 text-4xl font-bold tracking-tight md:text-5xl">
+              Optional donations, not admission
+            </h2>
+            <p className="max-w-xl text-lg leading-relaxed text-[#4c5a4f]">
+              The event is free on {eventDate}. If you want to contribute,
+              donations help support the park and future community events like this
+              one.
+            </p>
+          </div>
 
-            <div className="bg-secondary/30 p-8 rounded-2xl max-w-sm mx-auto border border-border/50 shadow-sm">
-              <div className="aspect-square bg-white rounded-xl mb-6 flex items-center justify-center border-2 border-dashed border-border overflow-hidden relative group">
+          <Card className="mx-auto w-full max-w-sm border-[#d7ccb6] bg-white/92 shadow-xl shadow-black/10">
+            <CardContent className="p-8 text-center">
+              <div className="relative mb-6 flex aspect-square items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-[#d7ccb6] bg-white">
                 <img
                   src="/donate-qr.png"
                   alt="Scan this QR code to donate"
                   className="h-full w-full object-contain"
                 />
               </div>
-              
-              <p className="font-display font-bold text-xl mb-2">Scan to Donate</p>
-              <p className="text-sm text-muted-foreground mb-6">Join your community, even a dollar tells the world you love Yakima parks</p>
-              
-              <Button asChild variant="outline" className="w-full rounded-full border-primary/20 text-primary hover:bg-primary/5 hover:text-primary-dark">
+
+              <p className="mb-2 text-xl font-bold font-display text-[#203124]">
+                Scan to Donate
+              </p>
+              <p className="mb-6 text-sm leading-relaxed text-[#5a665d]">
+                Every contribution helps care for Franklin Park and supports future
+                community events.
+              </p>
+
+              <Button
+                asChild
+                variant="outline"
+                className="w-full rounded-full border-[#2d5b40]/20 text-[#2d5b40] hover:bg-[#edf3ea] hover:text-[#2d5b40]"
+              >
                 <a href="https://bit.ly/4qtaG9O" target="_blank" rel="noreferrer">
                   Donate via Link
                 </a>
               </Button>
-            </div>
-          </motion.div>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
-      {/* --- FOOTER --- */}
-      <footer className="py-12 bg-foreground text-background mt-auto">
-        <div className="container-tight text-center">
-          <h4 className="font-display text-2xl font-bold mb-4">Greenwood Park</h4>
-          <p className="text-background/60 mb-8 max-w-md mx-auto text-sm">
-            Please help us keep the park clean by packing out what you pack in.
-            <br />
-            Let's keep our green space beautiful.
-          </p>
-          
-          <div className="flex justify-center gap-6 text-sm text-background/40">
-            <span>© 2026 Leadership Yakima</span>
-            {/* <a href="#" className="hover:text-background/80 transition-colors">Contact</a>
-            <a href="#" className="hover:text-background/80 transition-colors">Volunteer</a> */}
+      <footer className="bg-[#203124] px-4 py-12 text-[#f7f2e8] sm:px-6 lg:px-8">
+        <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-[1.1fr_0.9fr] md:items-end">
+          <div>
+            <p className="mb-2 text-xs font-semibold uppercase tracking-[0.32em] text-white/55">
+              Yakima Parks Day | {eventDate}
+            </p>
+            <h3 className="mb-3 text-2xl font-bold text-white">At Franklin Park</h3>
+            <p className="max-w-md text-sm leading-relaxed text-white/85">
+              Please help keep the park clean, welcome new visitors, and continue
+              supporting public spaces that matter to Yakima.
+            </p>
+          </div>
+
+          <div className="grid gap-3 sm:grid-cols-3">
+            {officialLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/82 transition hover:bg-white/10"
+              >
+                {link.label}
+              </a>
+            ))}
           </div>
         </div>
       </footer>

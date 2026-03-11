@@ -60,7 +60,6 @@ export async function registerRoutes(_httpServer: Server, _app: express.Express)
     {
       port,
       host: "0.0.0.0",
-      reusePort: true,
     },
     () => {
       log(`serving on port ${port}`);
