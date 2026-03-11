@@ -246,9 +246,9 @@ export default function Home() {
                 </p>
               </div>
               <div>
-                <p className="text-xl font-bold">A clearer message about the parks</p>
+                <p className="text-xl font-bold">Show up and support Yakima Parks</p>
                 <p className="text-sm leading-relaxed text-white/78">
-                  The event helps people understand the value of Yakima parks and
+                  The purpose of this event is to help people see the value of Yakima parks and
                   what current budget cuts mean for the community.
                 </p>
               </div>
@@ -299,11 +299,10 @@ export default function Home() {
                   Event Focus
                 </p>
                 <p className="text-lg font-bold text-[#203124]">
-                  Free attendance, clear community purpose
+                  Free attendance, clear community value
                 </p>
                 <p className="mt-2 text-sm leading-relaxed text-[#5a665d]">
-                  The site now leads with event details first and keeps donations as
-                  supporting information.
+                  We want to show the value there is in the local parks
                 </p>
               </CardContent>
             </Card>
