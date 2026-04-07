@@ -11,6 +11,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
 const flyerUrl = new URL("../../../Yakima.pdf", import.meta.url).href;
+const cwlaLogoUrl = new URL("../../../CWLA_Logo_Stacked.png", import.meta.url).href;
+const larsonGrossLogoUrl = new URL("../../../Larson_Gross.png", import.meta.url).href;
+const treeTopLogoUrl = new URL(
+  "../../../24_TreeTop_1960_Logo_Green_RGB (7).png",
+  import.meta.url,
+).href;
 const parkAddress = "2101 Tieton Dr, Yakima, WA 98902";
 const eventDate = "Saturday, April 25";
 
@@ -26,6 +32,24 @@ const officialLinks = [
   {
     label: "Franklin Park",
     href: "https://yakimaparks.com/parks/franklin/",
+  },
+];
+
+const majorSponsors = [
+  {
+    name: "CWLA",
+    image: cwlaLogoUrl,
+    imageClassName: "max-h-32",
+  },
+  {
+    name: "Larson Gross",
+    image: larsonGrossLogoUrl,
+    imageClassName: "max-h-24",
+  },
+  {
+    name: "Tree Top",
+    image: treeTopLogoUrl,
+    imageClassName: "max-h-24",
   },
 ];
 
@@ -132,6 +156,9 @@ export default function Home() {
             </button>
             <button type="button" onClick={() => scrollToSection("schedule")} className="transition hover:text-white">
               Schedule
+            </button>
+            <button type="button" onClick={() => scrollToSection("sponsors")} className="transition hover:text-white">
+              Sponsors
             </button>
             <button type="button" onClick={() => scrollToSection("donate")} className="transition hover:text-white">
               Donate
@@ -375,6 +402,46 @@ export default function Home() {
         </div>
       </section>
 
+      <section id="sponsors" className="relative overflow-hidden px-4 py-24 sm:px-6 lg:px-8">
+        <div className="absolute inset-0 bg-[#f7f2e8]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(237,243,234,0.75),rgba(255,250,242,0.92))]" />
+
+        <div className="relative mx-auto max-w-6xl">
+          <div className="mb-12 max-w-2xl">
+            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-[#48644e]">
+              Major Sponsors
+            </p>
+            <h2 className="mb-5 text-4xl font-bold tracking-tight md:text-5xl">
+              Thank you to our major sponsors
+            </h2>
+            <p className="text-lg leading-relaxed text-[#4c5a4f]">
+              Their support helps make Yakima Parks Day possible for the community.
+            </p>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-3">
+            {majorSponsors.map((sponsor, index) => (
+              <motion.div
+                key={sponsor.name}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.08, duration: 0.45 }}
+                className="h-full"
+              >
+                <div className="flex min-h-[220px] h-full items-center justify-center rounded-2xl border border-[#c9d7cb] bg-white/92 p-8 shadow-lg shadow-black/5">
+                  <img
+                    src={sponsor.image}
+                    alt={`${sponsor.name} logo`}
+                    className={`max-w-full object-contain ${sponsor.imageClassName}`}
+                  />
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section id="donate" className="relative overflow-hidden px-4 py-24 sm:px-6 lg:px-8">
         <div className="absolute inset-0 bg-[linear-gradient(180deg,#fffaf2,#f1e7d6)]" />
         <div
@@ -388,7 +455,7 @@ export default function Home() {
               Support the Park
             </p>
             <h2 className="mb-5 text-4xl font-bold tracking-tight md:text-5xl">
-              Optional donations, not admission
+              Optional donations, not needed for admission
             </h2>
             <p className="max-w-xl text-lg leading-relaxed text-[#4c5a4f]">
               The event is free on {eventDate}. If you want to contribute,
