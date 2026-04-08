@@ -17,6 +17,7 @@ const treeTopLogoUrl = new URL(
   "../../../24_TreeTop_1960_Logo_Green_RGB (7).png",
   import.meta.url,
 ).href;
+const HLALogoUrl = new URL("../../../hlaengineering_logo.png", import.meta.url).href;
 const parkAddress = "2101 Tieton Dr, Yakima, WA 98902";
 const eventDate = "Saturday, April 25";
 
@@ -49,6 +50,11 @@ const majorSponsors = [
   {
     name: "Tree Top",
     image: treeTopLogoUrl,
+    imageClassName: "max-h-24",
+  },
+  {
+    name: "HLA Engineering",
+    image: HLALogoUrl,
     imageClassName: "max-h-24",
   },
 ];
